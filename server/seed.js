@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 // or we require them. Assuming standard MERN structure where models are at './models/ModelName'
 const Product = require('./models/Product');
 const Review = require('./models/Review');
-const Stockist = require('./models/Stockist');
+// Stockist model removed — not in generated schema
 
 async function seedDatabase() {
   try {
@@ -217,51 +217,6 @@ async function seedDatabase() {
       console.log('AMI Seed: Successfully inserted product reviews.');
     } else {
       console.log('AMI Seed: Reviews already exist or no products available.');
-    }
-
-    // 3. Seed Stockists
-    const stockistCount = await Stockist.countDocuments();
-    if (stockistCount === 0) {
-      console.log('AMI Seed: Seeding physical store stockists...');
-      const stockistsToSeed = [
-        {
-          storeName: "AMI Turf Depot - London flagship",
-          city: "London",
-          address: "88 Kings Road, Chelsea, SW3 4TZ",
-          lat: 51.4883,
-          lng: -0.1627,
-          phone: "+44 20 7351 1001"
-        },
-        {
-          storeName: "Pro Hockey Supply - Amsterdam West",
-          city: "Amsterdam",
-          address: "Van Baerlestraat 142, 1071 BB Amsterdam",
-          lat: 52.3575,
-          lng: 4.8791,
-          phone: "+31 20 675 9231"
-        },
-        {
-          storeName: "Total Padel & Hockey Centre - Munich",
-          city: "Munich",
-          address: "Leopoldstraße 102, 80802 München",
-          lat: 48.1629,
-          lng: 11.5873,
-          phone: "+49 89 3810 5022"
-        },
-        {
-          storeName: "The Athletic Edge - Sydney",
-          city: "Sydney",
-          address: "412 Crown Street, Surry Hills NSW 2010",
-          lat: -33.8861,
-          lng: 151.2155,
-          phone: "+61 2 9331 4452"
-        }
-      ];
-
-      await Stockist.insertMany(stockistsToSeed);
-      console.log('AMI Seed: Successfully seeded stockists.');
-    } else {
-      console.log('AMI Seed: Stockists already exist.');
     }
 
     console.log('AMI Seed Process Completed Successfully.');

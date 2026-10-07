@@ -26,7 +26,7 @@ export default function Shop() {
       try {
         setLoading(true);
         const res = await axios.get('/api/products');
-        setProducts(res.data || []);
+        setProducts(Array.isArray(res.data) ? res.data : (res.data?.products || []));
         setError('');
       } catch (err) {
         console.error('Error loading products:', err);

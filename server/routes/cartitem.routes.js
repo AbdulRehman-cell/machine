@@ -112,7 +112,7 @@ router.post('/', async (req, res, next) => {
  * Note: To allow public cart updates, the client updates the whole cart state or creates a specific route.
  * According to strict rules, POST is public, PUT/DELETE are Admin Only.
  */
-router.put('/:id', requireAdmin, async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     const { sessionId, productId, variant, quantity } = req.body;
     

@@ -47,16 +47,15 @@ app.use('/api/products', require('./routes/product.routes'))
 app.use('/api/reviews', require('./routes/review.routes'))
 app.use('/api/cartitems', require('./routes/cartitem.routes'))
 
+app.use('/api/newslettersubscribers', require('./routes/newslettersubscribers.routes'))
+app.use('/api/orders', require('./routes/orders.routes'))
+app.use('/api/admin', require('./routes/admin.routes'))
+
 // ── Global error handler ─────────────────────────────────────────────────────
 app.use(function (err, req, res, _next) {
   console.error('[API error]', err.message)
   res.status(err.status || 500).json({ error: err.message || 'Internal server error' })
 })
-
-// ── Serve the built React client ─────────────────────────────────────────────
-app.use('/api/newslettersubscribers', require('./routes/newslettersubscribers.routes'))
-app.use('/api/orders', require('./routes/orders.routes'))
-app.use('/api/admin', require('./routes/admin.routes'))
 
 const dist = path.join(__dirname, '..', 'client', 'dist')
 app.use(express.static(dist))
