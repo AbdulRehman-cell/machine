@@ -138,8 +138,8 @@ export function Badge({
   };
 
   return (
-    <span 
-      className={`badge ${className}`} 
+    <span
+      className={`badge ${className}`}
       style={{
         display: 'inline-block',
         padding: '0.25rem 0.6rem',
@@ -154,5 +154,44 @@ export function Badge({
     >
       {children}
     </span>
+  );
+}
+
+function _showToast(message, type = 'info') {
+  if (typeof document === 'undefined') return;
+  const colors = { success: '#16a34a', error: '#dc2626', warning: '#d97706', info: '#374151' };
+  const el = document.createElement('div');
+  el.textContent = message;
+  el.style.cssText = `position:fixed;bottom:24px;right:24px;z-index:9999;padding:12px 20px;border-radius:10px;color:#fff;font-size:14px;font-weight:500;background:${colors[type]||colors.info};box-shadow:0 4px 16px rgba(0,0,0,.18);transition:opacity .3s;`;
+  document.body.appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 300); }, 3000);
+}
+export const toast = Object.assign(
+  (message, type) => _showToast(message, type),
+  {
+    success: (msg) => _showToast(msg, 'success'),
+    error:   (msg) => _showToast(msg, 'error'),
+    warning: (msg) => _showToast(msg, 'warning'),
+    info:    (msg) => _showToast(msg, 'info'),
+  }
+);
+
+export function Card({ children, className = '', style = {}, ...props }) {
+  return (
+    <div className={`card ${className}`} style={{ background: 'var(--surface, #fff)', border: '1px solid var(--border, rgba(0,0,0,.08))', borderRadius: '12px', padding: '24px', ...style }} {...props}>
+      {children}
+    </div>
+  );
+}
+
+export function Input({ className = '', style = {}, ...props }) {
+  return (
+    <input className={className} style={{ width: '100%', padding: '10px 14px', border: '1px solid var(--border, rgba(0,0,0,.12))', borderRadius: '8px', fontSize: '0.9375rem', background: 'var(--surface, #fff)', color: 'var(--text, #111)', outline: 'none', ...style }} {...props} />
+  );
+}
+
+export function Textarea({ className = '', style = {}, ...props }) {
+  return (
+    <textarea className={className} style={{ width: '100%', padding: '10px 14px', border: '1px solid var(--border, rgba(0,0,0,.12))', borderRadius: '8px', fontSize: '0.9375rem', background: 'var(--surface, #fff)', color: 'var(--text, #111)', outline: 'none', resize: 'vertical', minHeight: '100px', ...style }} {...props} />
   );
 }
